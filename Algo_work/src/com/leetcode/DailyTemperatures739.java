@@ -19,6 +19,8 @@ Note: The length of temperatures will be in the range [1, 30000]. Each temperatu
  * 
  * 
  */
+
+
 public class DailyTemperatures739 {
 	public int[] dailyTemperatures(int[] T) {
         // This is brut force solution having two loops to cheeck the value and populate the result array
@@ -62,52 +64,11 @@ public class DailyTemperatures739 {
 	
 	
 	/*
-	 * Need to complete below solution for which i am using map 
+	 * Map approach is wrong. Stack should work 
 	 */
-public int[] dailyTemperatures_map(int[] T) {
-        
-        if(T.length ==1)
-        {
-            return new int[]{0};
-        }
-        
-        Map<Integer, Integer> tempMap= new HashMap<Integer, Integer>();
-        
-        int[] returnArray=new int[T.length];
-        
-        for(int i=0; i< T.length; i++)
-        {
-            tempMap.put(i,T[i]);            
-            
-        }
-        
-        int j=0;
-        int count=0;
-        for(int i=0; i< T.length; i++)
-        {
-            int tempTocheck=T[i]+1;
-            
-            while(tempTocheck <=100 )
-            {       
-                    if(tempMap.containsValue(tempTocheck)==true)
-                    {
-                       int index= tempMap.get(tempTocheck);// this is wrong, I want to takeout key
-                        returnArray[j++]= index-i;
-                    }
-                
-                tempTocheck++;              
-                
-            }
-            if(tempTocheck >100)
-            {
-                returnArray[j++]=0;                
-            }
-        }
-        
-        
-     return returnArray;   
-        
-    }
+	
+	
+
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		
@@ -115,6 +76,9 @@ public int[] dailyTemperatures_map(int[] T) {
 		int returnArray[]=d.dailyTemperatures(new int[] {73, 74, 75, 71, 69, 72, 76, 73});
 		
 System.out.println(Arrays.toString(returnArray));
+
+
+
 	}
 
 }
