@@ -1,4 +1,5 @@
 package com.leetcode.tree;
+import com.leetcode.tree.TreeNode;
 /*
  * 104. Maximum Depth of Binary Tree
 Easy
@@ -28,17 +29,21 @@ return its depth = 3.
  * 
  * 
  */
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
 
 
-// Definition for a binary tree node.
-  class TreeNode {
-     int val;
-     TreeNode left;
-     TreeNode right;
-     TreeNode(int x) { val = x; }
-  }
  
 public class MaximumDepthofBinaryTree104 {
+	
+	  
 public int maxDepth(TreeNode root) {
         
         if(root==null)
