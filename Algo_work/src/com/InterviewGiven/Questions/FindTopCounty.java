@@ -1,4 +1,4 @@
-package important.code;
+package com.InterviewGiven.Questions;
 
 import java.util.ArrayList;
 import java.util.Collection;
