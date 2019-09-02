@@ -86,7 +86,7 @@ public class StairCaseProblem {
 		output = uniqueWaysToClimb(6);
 		System.out.println("No of unique combination : "+output);
 		
-		output = uniqueWaysToClimb(7);
+		output = uniqueWaysToClimbNandN(3,4);
 		System.out.println("No of unique combination : "+output);
 		
 		

@@ -86,7 +86,7 @@ class SortCityByPopulation implements Comparator
 }
 
 
-public class FindTopCounty {
+public class FindTopCounty_Aeris_interview {
 	
 	
 	public void findCounty( String[] cityList )
@@ -147,7 +147,7 @@ public class FindTopCounty {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		FindTopCounty f=new FindTopCounty();
+		FindTopCounty_Aeris_interview f=new FindTopCounty_Aeris_interview();
 		
 		String [] input= {"Adelanto,City,San Bernardino,31765",
 				"Agoura Hills,City,Los Angeles,20330",
