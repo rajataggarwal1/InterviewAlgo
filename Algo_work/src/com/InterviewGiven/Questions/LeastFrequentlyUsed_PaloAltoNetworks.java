@@ -39,6 +39,7 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
 
+// Class to store  key/value and count of hit counter of cache
 class CacheClass
 {
    String key;
@@ -57,6 +58,8 @@ class CacheClass
   
 }
 
+// custom comparator which will sort the list in assending order, Smaller item first and bigger item later.
+// We will use for deleting later when we go over capicity and get request of adding new item.
 class SortByVal implements Comparator
 {
   @Override
@@ -68,11 +71,11 @@ class SortByVal implements Comparator
     
     if(ch1.count > ch2.count)
     {
-      return -1;
+      return 1;
     }
     else if(ch1.count < ch2.count)
     {
-      return 1;
+      return -1;
       
     }
     else
@@ -80,12 +83,11 @@ class SortByVal implements Comparator
       return 0;
     }
     
-    
-  }
-  
-  
-  
+  }  
 }
+
+// Concrete class to implement the Least frequently used cache.
+
 public class LeastFrequentlyUsed_PaloAltoNetworks {
 
 	private int size;
@@ -97,28 +99,37 @@ public class LeastFrequentlyUsed_PaloAltoNetworks {
 	  }
 	  
 		public static void main (String[] args) {
-			System.out.println("Hello Java");
-	    
+		
 			LeastFrequentlyUsed_PaloAltoNetworks cache= new LeastFrequentlyUsed_PaloAltoNetworks( 2 );
-	    cache.put("a", "v1");
-	    cache.put("b", "v2");
-	    cache.put("c", "v3");
-	    
-	    System.out.println(cache.get("a"));
-	    System.out.println(cache.get("a"));
-	    System.out.println(cache.get("b"));
-	    cache.put("c", "v3");
-	    
-	    System.out.println(cache.get("c"));
-	    
-	    
-	    
+			
+			cache.put("a", "v1");
+			System.out.println(cache.get("a"));
+			cache.put("b", "v2");
+			System.out.println(cache.get("a"));
+			System.out.println(cache.get("b"));
+			cache.put("c", "v3");
+			
+			System.out.println(cache.get("c"));
+			System.out.println(cache.get("a"));
+			System.out.println(cache.get("a"));
+			System.out.println(cache.get("b"));
+			  //  cache.put("c", "v3");
+			
+			cache.remove("c");
+			
+			cache.put("d", "v4");
+			System.out.println(cache.get("c"));
+			System.out.println(cache.get("d"));
+		
 		}
 	  
-	  Map<String, CacheClass> map=new HashMap<String, CacheClass>();
+		Map<String, CacheClass> map=new HashMap<String, CacheClass>();
 	  
-	 
-	 public  void put(String key, String value)
+	 // Adding elemnt in cache
+		// Checking cache size if less then simply added into map
+		// if capicity is full then findout which one is lesser hit. This is causing extra complexity where I am copy to list to sort the element using custom comparatoe.
+		// Lesser hit element is in 0th position of list and remove that item from map
+	 public void put(String key, String value)
 	  {
 	    
 	    int currCapicity=map.size();
@@ -128,63 +139,57 @@ public class LeastFrequentlyUsed_PaloAltoNetworks {
 	      
 	      if(map.containsKey(key))
 	      {
-	         CacheClass ch= (CacheClass)map.get(key);
-	         
+	         CacheClass ch= (CacheClass)map.get(key);	         
 	         ch.count=ch.count+1;
-	         map.put(key,ch);
-	         
+	         map.put(key,ch);	         
 	      }
 	      else{
 	         CacheClass ch=new CacheClass(key,value,1 );
 	          map.put(key,ch);
 	      }   
 	    }
-	    else{
+	    else
+	    {
 	      
-	    	ArrayList<CacheClass>  list= new ArrayList<CacheClass>();
-	      
-	      for(Map.Entry entries: map.entrySet())
-	      {
-	        list.add((CacheClass)entries.getValue());    
-	        
-	      }
-	      
-	      Collections.sort(list, new SortByVal());
-	      
-	      CacheClass ch2=(CacheClass)list.get(0);
-	     map.remove(ch2.key);
-	      CacheClass ch3=new CacheClass(key,value,1 );
-	          map.put(key,ch3);
+			ArrayList<CacheClass>  list= new ArrayList<CacheClass>();
+		  
+			  for(Map.Entry entries: map.entrySet())
+			  {
+			    list.add((CacheClass)entries.getValue());    
+			    
+			  }
+			  
+			  Collections.sort(list, new SortByVal());
+		  
+			 CacheClass ch2=(CacheClass)list.get(0);
+			 map.remove(ch2.key);
+			 CacheClass ch3=new CacheClass(key,value,1 );
+			 map.put(key,ch3);
 	    }
-	    
-	     
-	    
 	  }
-	public String get(String key)
-	  {
+	 
+	// Getting element from map if key exist and increase the counter and add back into map. 
+	 public String get(String key)
+	 {
 	    String rmessage="";
 	    
 	     if(map.containsKey(key))
 	      {
 	         CacheClass ch= (CacheClass)map.get(key);
 	         
-	         ch.count=ch.count+1;
-	         
+	         ch.count=ch.count+1;	         
 	         rmessage=ch.val;
-	         map.put(key,ch);
-	         
+	         map.put(key,ch);	         
 	      }
 	      
-	      return rmessage;
-	      
-	  }
+	      return rmessage;	      
+	 }
+	 
+	 // Removing element based on key
 	 public void remove(String key)
-	 {
-	   
+	 {	   
 	    if(map.containsKey(key))      
 	      map.remove(key);
-	   
-	    
 	   
 	 }
 
