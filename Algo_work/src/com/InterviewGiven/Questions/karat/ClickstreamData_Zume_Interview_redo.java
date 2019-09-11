@@ -1,4 +1,4 @@
-package com.InterviewGiven.Questions;
+package com.InterviewGiven.Questions.karat;
 
 import java.util.ArrayList;
 import java.util.List;
