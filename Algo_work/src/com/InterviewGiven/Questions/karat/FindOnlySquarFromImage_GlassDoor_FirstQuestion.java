@@ -126,11 +126,76 @@ public class FindOnlySquarFromImage_GlassDoor_FirstQuestion {
 			     System.out.println(Arrays.toString(s.findRect(image3)));
 			     System.out.println(Arrays.toString(s.findRect(image4)));
 			     System.out.println(Arrays.toString(s.findRect(image5)));
-		
+				
+				System.out.println("********************");
+			     
+			     System.out.println(Arrays.toString(s.findRectNew(image1)));
+			     System.out.println(Arrays.toString(s.findRectNew(image2)));
+			     System.out.println(Arrays.toString(s.findRectNew(image3)));
+			     System.out.println(Arrays.toString(s.findRectNew(image4)));
+			     System.out.println(Arrays.toString(s.findRectNew(image5)));
+			     
 		
 
 	}
-	
+	// Optimized solution going from left to right to get location of first 0 and then going from bottom right to top to get last location of zero
+	public int[] findRectNew(int [][] image)
+	  {
+	    
+	    int retArray[]=new int[4];
+	    
+	    boolean firstFound=false;
+	    
+	    for(int i=0; i< image.length; i++)
+	    {
+	    	
+	    	for(int j=0; j< image[0].length; j++)
+	    	{
+	    		if(image[i][j]==0)
+	    		{
+	    			 retArray[0]=i;
+	   		      retArray[1]=j;
+	   		   firstFound=true;
+	   		      break;
+	    		}
+	    	}
+	    	
+	    	if(firstFound)
+	    	{
+	    		break;
+	    	}
+	    }
+	    
+	    
+	    
+	    // find  last zero from last row to first row
+	    firstFound=false;
+	    for(int i=image.length-1; i>=0; i--)
+	    {
+	    	
+	    	for(int j=image[0].length-1; j>=0; j--)
+	    	{
+	    		
+	    		if(image[i][j]==0)
+	    		{
+	    			 retArray[2]=i;
+	   		      retArray[3]=j;
+	   		      firstFound=true;
+	   		      break;
+	    		}
+	    		
+	    	}
+	    	if(firstFound)
+	    	{
+	    		break;
+	    	}
+	    	
+	    }
+	    
+	    return retArray;
+	    
+	    
+	  }
 	
 	public int[] findRect(int [][] image)
 	  {
