@@ -45,6 +45,9 @@ student_course_pairs_2 = [
 ]
 
 Sample output:
+{9,42=[], 0,42=[], 0,9=[]}
+
+
 
 find_pairs(student_course_pairs_1) =>
 {
@@ -80,7 +83,9 @@ Note that in the worst case of having all students taking the same course,
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 
 public class StudentCommonCources_Caffeine_First {
 
@@ -110,59 +115,107 @@ public class StudentCommonCources_Caffeine_First {
 			    
 			    StudentCommonCources_Caffeine_First s=new StudentCommonCources_Caffeine_First();
 			    
-			    s.find_pairs(studentCoursePairs1);
-		
-		
-
+			  //  s.find_pairs(studentCoursePairs1);
+			    Map<String, List<String>> result= s.getPairs(studentCoursePairs1);
+			    System.out.println(" Result 1 ->" + result);
+			    
+			    System.out.println("**********************************");
+			    Map<String, List<String>> result1= s.getPairs(studentCoursePairs2);
+			    System.out.println("Result 2 -> " + result1);
+			    	
 	}
 	
-	public List<List<String>> find_pairs(String student[][])
-	  {
-	    
-	    if(student.length==0)
-	    {
-	      
-	    }
-	    
-	    Map<String, List<String> > map = new HashMap<>();
-	    List<String> crs;
-	    
-	    for(int i=0; i< student.length; i++)
-	    {
-	      if(map.containsKey(student[i][0]))
-	      {
-	        List<String> lst=(List)map.get(student[i][0]);
-	        lst.add(student[i][1]);
-	          map.put(student[i][0], lst);        
-	        
-	      }
-	      else
-	      {
-	        crs=new ArrayList<String>();
-	        crs.add(student[i][1]);
-	        map.put(student[i][0], crs);
-	      }
-	      
-	    }
-	    
-	    System.out.println(map);
-	    
-	   /* for(Map.Entry<String, List> entry:map.entrySet<String, List>())
-	    {
-	      
-	      List<String> courseList=entry.getValue();
-	      
-	      while(courseList.size()>0)
-	      {
-	        
-	        
-	        
-	        
-	      }
-	      
-	      
-	      
-	    }*/
-	    
-	    
+	public Map<String, List<String>> getPairs(String crs[][])
+	{
+		HashSet<String> uniqueSet=new HashSet<String>();
+		Map<String, List<String>> idCourseMap = new HashMap<String, List<String>>();
+		List<String> course;
+		List<List<String>> returnList=new ArrayList<List<String>>();
+	
+		// Finding unique and mapping all course with unique student id 
+		// in one iteration
+		for(int i=0; i< crs.length; i++)
+		{
+			uniqueSet.add(crs[i][0]);
+			
+			if(idCourseMap.containsKey(crs[i][0]))
+		      {
+		        List<String> lst=(List)idCourseMap.get(crs[i][0]);
+		        lst.add(crs[i][1]);
+		        idCourseMap.put(crs[i][0], lst);  
+		      }
+		      else
+		      {
+		    	  course=new ArrayList<String>();
+		    	  course.add(crs[i][1]);
+		    	  idCourseMap.put(crs[i][0], course);
+		      }			
+		}
+		
+		System.out.println(uniqueSet);
+		System.out.println("idCourseMap "+idCourseMap);
+		
+		// coverting set to object and then for later use of string to generate pair.
+		
+		Object[] arrSet=new Object[uniqueSet.size()];		
+		arrSet=(Object[])uniqueSet.toArray();		
+		
+		// generate combination
+		for(int i=0; i<arrSet.length; i++ )
+		{
+			for(int j=i+1; j< arrSet.length; j++)
+			{
+				List<String> tmpList=new ArrayList<String>();
+				tmpList.add((String)arrSet[i]);
+				tmpList.add((String)arrSet[j]);
+				returnList.add(tmpList);				
+			}				
+		}
+		System.out.println(returnList);
+		
+		
+		
+		// Now going thru the unique generated combination list and the course map to generate the result
+		// Building result useing key in string and adding all common course in list and return map
+		
+		Map<String, List<String>> resultMap=new HashMap<String, List<String>>();
+		
+		for(int i=0; i<returnList.size(); i++)
+		{
+			// building key
+			String first=returnList.get(i).get(0);
+			String second=returnList.get(i).get(1);
+			
+			// Checking id mapped course 
+			if(idCourseMap.containsKey(first) && idCourseMap.containsKey(second))
+		      {
+		        List<String> firstlst=(List)idCourseMap.get(first);
+		        List<String> secondlst=(List)idCourseMap.get(second);
+		        
+		        String key= first + "," +second;
+		        List<String> commonCourse=new ArrayList<String>();
+		        
+		        // finding intersection -> matching course
+		        for(int k=0; k<firstlst.size(); k++)
+		        {
+		        	for(int l=0; l<secondlst.size(); l++)
+		        	{
+		        		if((firstlst.get(k)).equals(secondlst.get(l)))
+		        		{
+		        			commonCourse.add(firstlst.get(k));
+		        		}
+		        	}
+		        }
+		        // building result map
+		        resultMap.putIfAbsent(key, commonCourse);
+		      }			
+			
+		}
+		
+		System.out.println("resultMap "+resultMap);		
+		
+	
+	return resultMap;
+		
+	}    
 }
