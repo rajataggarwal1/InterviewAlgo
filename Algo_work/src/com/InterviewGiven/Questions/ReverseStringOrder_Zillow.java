@@ -42,7 +42,7 @@ public class ReverseStringOrder_Zillow {
           result=s.reverseOrder(str5);
         System.out.println(result);
          
-          String str6="Abcdefgh";
+          String str6="Test1ng-Leet=code-Q!";
            result=s.reverseOrder(str6);
         System.out.println(result);
         

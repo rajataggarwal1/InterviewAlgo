@@ -2,9 +2,11 @@ package com.InterviewGiven.Questions.karat;
 /*
  * *Intuit also asked similar question
  * 
-You are a developer for a university. Your current project is to develop a system for students to find courses they share with friends. The university has a system for querying courses students are enrolled in, returned as a list of (ID, course) pairs.
+You are a developer for a university. Your current project is to develop a system for students to find courses they share with friends.
+ The university has a system for querying courses students are enrolled in, returned as a list of (ID, course) pairs.
 
-Write a function that takes in a list of (student ID number, course name) pairs and returns, for every pair of students, a list of all courses they share.
+Write a function that takes in a list of (student ID number, course name) pairs and returns,
+ for every pair of students, a list of all courses they share.
 
 Sample Input:
 
@@ -58,13 +60,19 @@ find_pairs(student_course_pairs_1) =>
 /*
  * A Bit Better Approach
 
-studentCoursePairs is essentially a student -> course mapping. Create the reverse one to many mapping, where a course is mapped to a list of students that are taking it. For each course in this map, the student list contains all the students that share the course. So you can loop over each course's student list and add to output all possible pairs of students. Again if a pair of student already exists in the output, add to that entry instead of creating a new one.
+studentCoursePairs is essentially a student -> course mapping. Create the reverse one to many mapping, 
+where a course is mapped to a list of students that are taking it. For each course in this map, the student list contains all 
+the students that share the course. So you can loop over each course's student list and add to output all possible pairs of students.
+ Again if a pair of student already exists in the output, add to that entry instead of creating a new one.
 
 I leave the pseudo code (for now) up to the reader to imagine.
 
-Creating the reverse mapping can be done by iterating over the studentCoursePairs once: O(size of studentCoursePairs). The second part of this algo generates each shared course once, so it has O(number of shared courses). So overall O((size of studentCoursePairs) + (number of shared courses)).
+Creating the reverse mapping can be done by iterating over the studentCoursePairs once: O(size of studentCoursePairs).
+The second part of this algo generates each shared course once, so it has O(number of shared courses). 
+So overall O((size of studentCoursePairs) + (number of shared courses)).
 
-Note that in the worst case of having all students taking the same course, the O(number of shared courses) = O((size of studentCoursePairs)2), and this algo has the same complexity as the brute force.
+Note that in the worst case of having all students taking the same course,
+ the O(number of shared courses) = O((size of studentCoursePairs)2), and this algo has the same complexity as the brute force.
  * 
  * 
  * 

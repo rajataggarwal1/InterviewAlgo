@@ -5,7 +5,8 @@ package com.leetcode.Meetup.ProgrammingInterviewPrep.Graph;
   If you are programming a monkey-bot, how would you go about fetching the fruit. 
   
   The poles are infinitely long, so you will never reach the end of a pole. 
-  You cannot hop from pole to pole, but can climb down a pole after climbing a certain distance, and then pick another pole to climb up. 
+  You cannot hop from pole to pole, but can climb down a pole after climbing a certain distance,
+   and then pick another pole to climb up. 
   
   The method sawFruit() will return true once the monkey-bot touches or passes the fruit.
  */

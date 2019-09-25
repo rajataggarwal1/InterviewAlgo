@@ -1,5 +1,6 @@
 package com.InterviewGiven.Questions;
 /*
+ * https://leetcode.com/problems/lfu-cache/
  * 
 Implement a Cache which has the following interface :
 
@@ -102,24 +103,34 @@ public class LeastFrequentlyUsed_PaloAltoNetworks {
 		
 			LeastFrequentlyUsed_PaloAltoNetworks cache= new LeastFrequentlyUsed_PaloAltoNetworks( 2 );
 			
+			//LeastFrequentlyUsed_PaloAltoNetworks cache= new LeastFrequentlyUsed_PaloAltoNetworks( 0 ); // testing for edge condition
+			
+//			cache.put("a", "v1");
+//			System.out.println(cache.get("a"));
+//			cache.put("b", "v2");
+//			System.out.println(cache.get("a"));
+//			System.out.println(cache.get("b"));
+//			cache.put("c", "v3");
+//			
+//			System.out.println(cache.get("c"));
+//			System.out.println(cache.get("a"));
+//			System.out.println(cache.get("a"));
+//			System.out.println(cache.get("b"));
+//			  //  cache.put("c", "v3");
+//			
+//			cache.remove("c");
+//			
+//			cache.put("d", "v4");
+//			System.out.println(cache.get("c"));
+//			System.out.println(cache.get("d"));
+			
+			
 			cache.put("a", "v1");
-			System.out.println(cache.get("a"));
 			cache.put("b", "v2");
-			System.out.println(cache.get("a"));
+			cache.put("b", "v3");
+			cache.put("c", "v4");
 			System.out.println(cache.get("b"));
-			cache.put("c", "v3");
 			
-			System.out.println(cache.get("c"));
-			System.out.println(cache.get("a"));
-			System.out.println(cache.get("a"));
-			System.out.println(cache.get("b"));
-			  //  cache.put("c", "v3");
-			
-			cache.remove("c");
-			
-			cache.put("d", "v4");
-			System.out.println(cache.get("c"));
-			System.out.println(cache.get("d"));
 		
 		}
 	  
@@ -158,13 +169,18 @@ public class LeastFrequentlyUsed_PaloAltoNetworks {
 			    list.add((CacheClass)entries.getValue());    
 			    
 			  }
-			  
-			  Collections.sort(list, new SortByVal());
-		  
-			 CacheClass ch2=(CacheClass)list.get(0);
-			 map.remove(ch2.key);
-			 CacheClass ch3=new CacheClass(key,value,1 );
-			 map.put(key,ch3);
+			 
+				  Collections.sort(list, new SortByVal());
+		  // adding condition if capicity is 0 and we cannot remove anyitem from list
+				  if(list.size()>0)
+				  {
+					 CacheClass ch2=(CacheClass)list.get(0);
+					 map.remove(ch2.key);
+					 CacheClass ch3=new CacheClass(key,value,1 );
+					 map.put(key,ch3);
+				  }
+			
+			 
 	    }
 	  }
 	 
