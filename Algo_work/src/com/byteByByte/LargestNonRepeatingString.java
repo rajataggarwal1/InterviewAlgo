@@ -23,6 +23,7 @@ public class LargestNonRepeatingString {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		LargestNonRepeatingString l=new LargestNonRepeatingString();
+		/*
 		System.out.println(l.findLongestNonRepeatingString("abcabcbb"));
 		System.out.println(l.findLongestNonRepeatingString("bbbbb"));
 		System.out.println(l.findLongestNonRepeatingString("pwwkew"));
@@ -39,8 +40,71 @@ public class LargestNonRepeatingString {
 		
 		System.out.println(l.lengthOfLongestSubstring("aabaab!bb")); //expected 3 returning 2
 		System.out.println(l.lengthOfLongestSubstring("museuwzbczdejn")); //expected 7 returning 8
+		*/
+		/***********************/
+		System.out.println(l.lengthOfLongestSubstringUsingIndex("abcabcbb"));
+		System.out.println(l.lengthOfLongestSubstringUsingIndex("bbbbb"));
+		System.out.println(l.lengthOfLongestSubstringUsingIndex("pwwkew"));
+		System.out.println(l.lengthOfLongestSubstringUsingIndex(""));
+		System.out.println(l.lengthOfLongestSubstringUsingIndex(" "));
+		System.out.println(l.lengthOfLongestSubstringUsingIndex("au"));
+		System.out.println(l.lengthOfLongestSubstringUsingIndex("dvdf"));
+		System.out.println(l.lengthOfLongestSubstringUsingIndex("tmmzuxt"));
+		System.out.println(l.lengthOfLongestSubstringUsingIndex("ohvhjdml")); //expected 6	
+		System.out.println(l.lengthOfLongestSubstringUsingIndex("aabaab!bb")); //expected 3 
+		System.out.println(l.lengthOfLongestSubstringUsingIndex("museuwzbczdejn")); //expected 7 
+//		
+		System.out.println(l.lengthOfLongestSubstringUsingIndex("aabaab!bb")); //expected 3 
+		System.out.println(l.lengthOfLongestSubstringUsingIndex("museuwzbczdejn")); //expected 7 
+		
+		
 	}
 
+	//  Rajat's first approach
+	// Implementing Brutforce approach using hashMap 
+		 // Storing index with character, get the index value if duplicate found 
+		 //and clear the map and move back i to the last duplicate+1 -> clear(remove all elemnt) map
+		 // and rebuild map for next string-duplicate
+		 
+		 public int lengthOfLongestSubstringUsingIndex(String s) {
+			 
+			 HashMap<Character, Integer> map=new HashMap<Character, Integer>();
+			 
+			 int i=0; 
+			 int longestSeenSoFar=0;
+			 int longest=0;
+			 
+			 // going thru i to length
+			 while(i < s.length() )
+			 {
+				 // check if duplicate found 
+				 // get index-> clearmap -> set ito index-1 and start checking again
+				 if(map.containsKey(s.charAt(i)))
+				 {
+					 int index=map.get(s.charAt(i));
+					 
+					 map.clear();
+					 i=index+1;
+					 longestSeenSoFar=0;
+				 }
+				 else
+				 {
+					 map.put(s.charAt(i), i);
+					 longestSeenSoFar++;
+					 i++;	
+				 }
+				 
+				 if(longest < longestSeenSoFar)
+				 {
+					 longest=longestSeenSoFar;
+				 }
+				 
+			 }
+			 
+			 return longest;
+			 
+		 }
+		 
 	// Implementing two pointer approach
 	public int findLongestNonRepeatingString(String str)
 	{	
@@ -151,5 +215,8 @@ public class LargestNonRepeatingString {
 	        }
 	        return ans;
 	    }
+	 
+	 
+	 
 	
 }
