@@ -73,7 +73,71 @@ All characters have an ASCII value in [35, 126].
  * 
  */
 public class StringCompression443 {
-	public int compress(char[] chars) {
+	// new implementation
+	 public int compress(char[] chars) {
+	        
+	        int count=0;
+	        int result=0;
+	        int k=0;
+	        if(chars.length==1)
+	            return 1;
+	        int i=0;
+	        while(i< chars.length)
+	        {
+	            char charToCheck=chars[i];
+	            count=0;
+	            for(int j=i; j< chars.length; j++)
+	            {              
+	                System.out.println("i " + i + " j "+j+ " charToCheck " + charToCheck + " chars[j] " + chars[j]);
+	                
+	                if(chars[j] == charToCheck)
+	                {
+	                    count++;
+	                    continue;
+	                }
+	                else
+	                {                   
+	                    i=j;
+	                    break;
+	                }
+	                
+	            }
+	            
+	            if(count==1)
+	            {
+	             //result[k++]=charToCheck;
+	                chars[k++]=charToCheck;
+	                result++;
+	            }
+	            else
+	            {
+	            // result[k++]=charToCheck;
+	                chars[k++]=charToCheck;
+	                result++;
+	                char ch[]=Integer.toString(count).toCharArray();
+	                for(int l=0; l<ch.length; l++)
+	                {
+	                    //result[k++]=ch[l];
+	                     chars[k++]=ch[l];
+	                    result++;
+	                }
+	            }
+	            System.out.println(Arrays.toString(chars));  
+	        }
+	          // System.out.println(Arrays.toString(result));   
+	        
+	        int resultcount=0;
+	       // System.out.println(Arrays.toString(result));
+	         System.out.println("** "+ Arrays.toString(chars));
+	       
+	      return result-1;  
+	        
+	    }  
+	
+	//old
+	
+	
+	public int compress1(char[] chars) {
 		  
         int count=0;
         int modifyArrCounter=0;
